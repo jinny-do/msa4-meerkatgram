@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(500).body(
                 GlobalRes.<String>builder()
                         .code("E99")
-                        .message("현재 서비스 이용이 불가합니다. 잠시후 다시 시도해 주십시오.")
+                        .message("시스템 에러")
                         .build()
         );
     }
