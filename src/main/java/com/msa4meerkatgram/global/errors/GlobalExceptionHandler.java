@@ -1,12 +1,12 @@
 package com.msa4meerkatgram.global.errors;
 
+import com.msa4meerkatgram.global.errors.custom.NotRegisteredException;
 import com.msa4meerkatgram.global.responses.GlobalRes;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.RestClient;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.Arrays;
@@ -15,10 +15,17 @@ import java.util.List;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private final RestClient.Builder builder;
 
-    public GlobalExceptionHandler(RestClient.Builder builder) {
-        this.builder = builder;
+    @ExceptionHandler(NotRegisteredException.class)
+    public ResponseEntity<GlobalRes<String>> notRegisteredHandler(NotRegisteredException e) {
+
+        return ResponseEntity.status(400).body(
+                GlobalRes.<String>builder()
+                        .code("E01")
+                        .message("로그인 에러")
+                        .data(e.getMessage())
+                        .build()
+        );
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
