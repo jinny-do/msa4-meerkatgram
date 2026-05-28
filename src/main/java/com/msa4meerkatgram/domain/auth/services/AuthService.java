@@ -1,9 +1,16 @@
 package com.msa4meerkatgram.domain.auth.services;
 
+import com.msa4meerkatgram.domain.auth.mapper.AuthMapper;
 import com.msa4meerkatgram.domain.auth.requests.LoginReq;
+import com.msa4meerkatgram.domain.auth.responses.AuthRes;
 import com.msa4meerkatgram.domain.user.entities.User;
 import com.msa4meerkatgram.domain.user.mapper.UserMapper;
+import com.msa4meerkatgram.domain.user.responses.UserRes;
 import com.msa4meerkatgram.global.errors.custom.NotRegisteredException;
+import com.msa4meerkatgram.global.security.cookie.CookieManager;
+import com.msa4meerkatgram.global.security.jwt.JwtConfig;
+import com.msa4meerkatgram.global.security.jwt.JwtProvider;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +18,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserMapper userMapper;
+    private final JwtProvider jwtProvider;
+    private final AuthMapper authMapper;
+    private final CookieManager cookieManager;
+    private final JwtConfig jwtConfig;
 
-    public void login(LoginReq loginReq) {
+    public AuthRes login(HttpServletResponse response, LoginReq loginReq) {
         // user정보 획득
         User user = userMapper.findByEmail(loginReq.email());
 
@@ -22,22 +33,39 @@ public class AuthService {
         }
 
         // 비밀번호 체크
+        // Security 설정이 안 돼서 잠시 건너뜀
 
         // 토큰 생성
+        String newAccessToken = jwtProvider.generateAccessToken(user);
+        String newRefreshToken = jwtProvider.generateRefreshToken(user);
 
         // 리프레시 토큰을 DB 저장
+        authMapper.updateRefreshToken(user.getId(), newRefreshToken);
 
         // 리프레시 토큰을 Cookie에 저장
+        cookieManager.setCookie(
+                response
+                ,jwtConfig.refreshTokenCookieName()
+                ,newRefreshToken
+                ,jwtConfig.refreshTokenCookieExpiry()
+                ,jwtConfig.reissUri()
+        );
 
         // 리턴 처리 (컨트롤러에게 돌려줌)
-
-
-
-
-
-
-
-
+        // user 정보 그대로 리턴 하면 리프레시 토큰과 비밀번호가 다 보임
+        // 그래서 responseDTO를 하나만들것임
+        return AuthRes.builder()
+                .accessToken(newAccessToken)
+                .user(
+                        UserRes.builder()
+                                .email(user.getEmail())
+                                .nick(user.getNick())
+                                .role(user.getRole())
+                                .profile(user.getProfile())
+                                .createdAt(user.getCreatedAt())
+                                .build()
+                )
+                .build();
 
     }
 }
