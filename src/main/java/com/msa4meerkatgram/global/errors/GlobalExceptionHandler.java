@@ -96,6 +96,18 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<GlobalRes<String>> userNotFoundHandler(UserNotFoundException e) {
+
+        return ResponseEntity.status(409).body(
+                GlobalRes.<String>builder()
+                        .code("E12")
+                        .message("USER_NOT_FOUND")
+                        .data(e.getMessage())
+                        .build()
+        );
+    }
+
 
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)

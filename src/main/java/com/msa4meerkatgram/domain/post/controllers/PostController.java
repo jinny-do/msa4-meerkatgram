@@ -1,17 +1,18 @@
 package com.msa4meerkatgram.domain.post.controllers;
 
 import com.msa4meerkatgram.domain.post.entities.Post;
+import com.msa4meerkatgram.domain.post.requests.PostCreateReq;
 import com.msa4meerkatgram.domain.post.requests.PostIndexReq;
 import com.msa4meerkatgram.domain.post.responses.PostIndexRes;
 import com.msa4meerkatgram.domain.post.services.PostService;
 import com.msa4meerkatgram.global.responses.GlobalRes;
+import io.jsonwebtoken.Claims;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 // 필드만 정의해도 해당하는 생성자를 생성해주는 것
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class PostController {
     private final PostService postService;
+
 
     @GetMapping("/posts")
     public ResponseEntity<GlobalRes<PostIndexRes>> index(PostIndexReq postIndexReq) {
@@ -46,6 +48,25 @@ public class PostController {
                         .code("00")
                         .message("게시글 상세 정상 처리")
                         .data(result)
+                        .build()
+        );
+    }
+
+    // 게시물 작성
+    @PostMapping("/posts/create")
+    public ResponseEntity<GlobalRes<Post>> create(
+            @Valid @RequestBody PostCreateReq req,
+            @AuthenticationPrincipal Claims claims
+    ) {
+        long userId = Long.parseLong(claims.getSubject());
+
+        Post post = postService.create(req, userId);
+
+        return ResponseEntity.ok(
+                GlobalRes.<Post>builder()
+                        .code("00")
+                        .message("게시물 작성 완료")
+                        .data(post)
                         .build()
         );
     }
