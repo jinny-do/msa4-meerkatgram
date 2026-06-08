@@ -523,3 +523,79 @@ org.springframework.web.servlet.resource.NoResourceFoundException: No static res
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.55.jar:10.1.55]
 	at java.base/java.lang.Thread.run(Thread.java:840) ~[na:na]
 
+2026-06-05T18:30:43.196+09:00  INFO 9632 --- [msa4-meerkatgram] [main] c.m.Msa4MeerkatgramApplication           : Starting Msa4MeerkatgramApplication using Java 17.0.18 with PID 9632 (E:\djh\workspace\msa4-meerkatgram\build\classes\java\main started by user in E:\djh\workspace\msa4-meerkatgram)
+2026-06-05T18:30:43.197+09:00  INFO 9632 --- [msa4-meerkatgram] [main] c.m.Msa4MeerkatgramApplication           : No active profile set, falling back to 1 default profile: "default"
+2026-06-05T18:30:43.789+09:00  INFO 9632 --- [msa4-meerkatgram] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-06-05T18:30:43.796+09:00  INFO 9632 --- [msa4-meerkatgram] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-06-05T18:30:43.796+09:00  INFO 9632 --- [msa4-meerkatgram] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.55]
+2026-06-05T18:30:43.823+09:00  INFO 9632 --- [msa4-meerkatgram] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-06-05T18:30:43.823+09:00  INFO 9632 --- [msa4-meerkatgram] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 602 ms
+2026-06-05T18:30:44.094+09:00  WARN 9632 --- [msa4-meerkatgram] [main] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 07d0a5b8-c04d-435c-b91b-5d778c77e8ec
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+2026-06-05T18:30:44.098+09:00  INFO 9632 --- [msa4-meerkatgram] [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-05T18:30:44.144+09:00  WARN 9632 --- [msa4-meerkatgram] [main] o.s.s.c.a.web.builders.WebSecurity       : 
+
+********************************************************************
+**********        Security debugging is enabled.       *************
+**********    This may include sensitive information.  *************
+**********      Do not use in a production system!     *************
+********************************************************************
+
+
+2026-06-05T18:30:44.213+09:00  INFO 9632 --- [msa4-meerkatgram] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-06-05T18:30:44.217+09:00  INFO 9632 --- [msa4-meerkatgram] [main] c.m.Msa4MeerkatgramApplication           : Started Msa4MeerkatgramApplication in 1.287 seconds (process running for 1.455)
+2026-06-05T18:30:57.598+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-05T18:30:57.598+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-06-05T18:30:57.599+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-06-05T18:30:57.608+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] Spring Security Debugger                 : 
+
+************************************************************
+
+Request received for POST '/api/login':
+
+org.apache.catalina.connector.RequestFacade@7b9de6c0
+
+servletPath:/api/login
+pathInfo:null
+headers: 
+content-type: application/json
+user-agent: PostmanRuntime/7.54.0
+accept: */*
+postman-token: e3437281-194e-4c7a-8975-9fbff048f001
+host: localhost:8080
+accept-encoding: gzip, deflate, br
+connection: keep-alive
+content-length: 64
+
+
+Security filter chain: [
+  DisableEncodeUrlFilter
+  WebAsyncManagerIntegrationFilter
+  SecurityContextHolderFilter
+  HeaderWriterFilter
+  CorsFilter
+  LogoutFilter
+  TokenAuthenticationFilter
+  RequestCacheAwareFilter
+  SecurityContextHolderAwareRequestFilter
+  AnonymousAuthenticationFilter
+  SessionManagementFilter
+  ExceptionTranslationFilter
+  AuthorizationFilter
+]
+
+
+************************************************************
+
+
+2026-06-05T18:30:57.677+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-06-05T18:30:57.828+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@10f2011b
+2026-06-05T18:30:57.829+09:00  INFO 9632 --- [msa4-meerkatgram] [http-nio-8080-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-06-05T18:33:28.981+09:00  INFO 9632 --- [msa4-meerkatgram] [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-05T18:33:29.001+09:00  INFO 9632 --- [msa4-meerkatgram] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-06-05T18:33:29.003+09:00  INFO 9632 --- [msa4-meerkatgram] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-06-05T18:33:29.007+09:00  INFO 9632 --- [msa4-meerkatgram] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
