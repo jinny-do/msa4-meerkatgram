@@ -58,13 +58,13 @@
             keyProperty="id"
     >
         INSERT INTO posts(
-        user_id,
-        content,
-        image
+            user_id,
+            content,
+            image
         ) VALUES (
-        #{userId},
-        #{content},
-        #{image}
+            #{userId},
+            #{content},
+            #{image}
         )
     </insert>
 </mapper>
