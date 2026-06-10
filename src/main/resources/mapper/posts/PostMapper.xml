@@ -67,4 +67,15 @@
             #{image}
         )
     </insert>
+
+    <update
+            id="deleteByPk"
+            parameterType="long"
+    >
+        UPDATE posts
+        SET deleted_at = NOW()
+        WHERE   id = #{id}
+            AND deleted_at IS NULL
+    </update>
+
 </mapper>

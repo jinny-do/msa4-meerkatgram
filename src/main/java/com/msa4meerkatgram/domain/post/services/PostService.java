@@ -8,6 +8,8 @@ import com.msa4meerkatgram.domain.post.responses.PostIndexRes;
 import com.msa4meerkatgram.domain.user.entities.User;
 import com.msa4meerkatgram.domain.user.mapper.UserMapper;
 import com.msa4meerkatgram.global.errors.custom.DeletedRecordException;
+import com.msa4meerkatgram.global.errors.custom.ForbiddenException;
+import com.msa4meerkatgram.global.errors.custom.PostNotFoundException;
 import com.msa4meerkatgram.global.errors.custom.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -69,5 +71,33 @@ public class PostService {
         postMapper.create(post);
 
         return post;
+    }
+
+    // 게시글 삭제
+    public void delete(long postId, long userId) {
+        User user = userMapper.findByPk(userId);
+
+        if(user == null) {
+            throw new UserNotFoundException("존재하지 않는 회원입니다.");
+        }
+
+        Post post = postMapper.findByPk(postId);
+        if(post == null) {
+            throw new PostNotFoundException("존재하지 않는 게시글입니다.");
+        }
+
+        if(post.getUserId() != userId) {
+            throw new ForbiddenException("게시글 삭제 권한이 없습니다.");
+        }
+
+
+        // 게시글 번호를 가지고 DB에 삭제 쿼리 날리는
+        // 성공시 1, 실패시 0
+        int result = postMapper.deleteByPk(postId);
+
+        if(result == 0) {
+            throw new PostNotFoundException("게시글 삭제에 실패했습니다.");
+        }
+
     }
 }

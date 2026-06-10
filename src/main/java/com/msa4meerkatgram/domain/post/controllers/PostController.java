@@ -52,15 +52,25 @@ public class PostController {
         );
     }
 
-    // 게시물 삭제
-    // @DeleteMapping("/posts/{id}")
-    // public ResponseEntity<GlobalRes<Post>> delete (
-    //         // 삭제는 게시글 id, 유저 id 둘 다 필요
-    //         @PathVariable long id,
-    //         @AuthenticationPrincipal Claims claims
-    // ) {
-    //     long userId = Long.parseLong(claims.getSubject());
-    // }
+    // 게시글 삭제
+    @DeleteMapping("/posts/{id}")
+    public ResponseEntity<GlobalRes<String>> delete(
+            @PathVariable long id,
+            @AuthenticationPrincipal Claims claims
+    ){
+        long userId = Long.parseLong(claims.getSubject());
+        postService.delete(id, userId); // service의 반환값 여부에 따라
+
+        return ResponseEntity.status(200).body(
+                GlobalRes.<String>builder()
+                        .code("00")
+                        .message("게시글 삭제 완료")
+                        .build()
+        );
+
+
+    }
+
 
     // 게시물 작성
     @PostMapping("/posts/create")
