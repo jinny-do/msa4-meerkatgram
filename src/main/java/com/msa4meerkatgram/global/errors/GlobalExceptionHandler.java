@@ -96,6 +96,44 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<GlobalRes<String>> userNotFoundHandler(UserNotFoundException e) {
+
+        return ResponseEntity.status(409).body(
+                GlobalRes.<String>builder()
+                        .code("E12")
+                        .message("USER_NOT_FOUND")
+                        .data(e.getMessage())
+                        .build()
+        );
+    }
+
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public  ResponseEntity<GlobalRes<String>> postNotFoundHandle(PostNotFoundException e) {
+        //특정 필드 하나에 대한 에러가 발생했을 때 validation 라이브러리가 반환
+        return ResponseEntity.status(404).body(
+                GlobalRes.<String>builder()
+                        .code("E21")
+                        .message("POST_NOT_FOUND")
+                        .data(e.getMessage())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<GlobalRes<String>> forbiddenHandle(
+            ForbiddenException e
+    ) {
+
+        return ResponseEntity.status(403).body(
+                GlobalRes.<String>builder()
+                        .code("E22")
+                        .message("FORBIDDEN")
+                        .data(e.getMessage())
+                        .build()
+        );
+    }
 
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
