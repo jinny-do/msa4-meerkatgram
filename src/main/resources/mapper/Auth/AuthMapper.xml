@@ -9,7 +9,7 @@
     <!-- 특정 사용자의 refresh_token 값을 새 토큰으로 업데이트하는 SQL -->
     <update
             id="updateRefreshToken"
-            parameterType="com.msa4meerkatgram.domain.user.entities.User"
+            parameterType="com.msa4meerkatgram.domain.user.entities.UserMybatis"
     >
         UPDATE users
         SET
@@ -21,7 +21,7 @@
 
     <insert
             id="create"
-            parameterType="com.msa4meerkatgram.domain.user.entities.User"
+            parameterType="com.msa4meerkatgram.domain.user.entities.UserMybatis"
             useGeneratedKeys="true"
             keyProperty="id"
     >

@@ -1,6 +1,6 @@
 package com.msa4meerkatgram.domain.post.controllers;
 
-import com.msa4meerkatgram.domain.post.entities.Post;
+import com.msa4meerkatgram.domain.post.entities.PostMybatis;
 import com.msa4meerkatgram.domain.post.requests.PostCreateReq;
 import com.msa4meerkatgram.domain.post.requests.PostIndexReq;
 import com.msa4meerkatgram.domain.post.responses.PostIndexRes;
@@ -38,13 +38,13 @@ public class PostController {
 
     // 게시물 상세 조회
     @GetMapping("/posts/{id}")
-    public ResponseEntity<GlobalRes<Post>> show(
+    public ResponseEntity<GlobalRes<PostMybatis>> show(
             @Min(value=1, message = "1이상 숫자만 허용합니다.") @PathVariable long id
     ) {
-        Post result = postService.show(id);
+        PostMybatis result = postService.show(id);
 
         return ResponseEntity.status(200).body(
-                GlobalRes.<Post>builder()
+                GlobalRes.<PostMybatis>builder()
                         .code("00")
                         .message("게시글 상세 정상 처리")
                         .data(result)
@@ -74,16 +74,16 @@ public class PostController {
 
     // 게시물 작성
     @PostMapping("/posts/create")
-    public ResponseEntity<GlobalRes<Post>> create(
+    public ResponseEntity<GlobalRes<PostMybatis>> create(
             @Valid @RequestBody PostCreateReq req,
             @AuthenticationPrincipal Claims claims
     ) {
         long userId = Long.parseLong(claims.getSubject());
 
-        Post post = postService.create(req, userId);
+        PostMybatis post = postService.create(req, userId);
 
         return ResponseEntity.status(200).body(
-                GlobalRes.<Post>builder()
+                GlobalRes.<PostMybatis>builder()
                         .code("00")
                         .message("게시물 작성 완료")
                         .data(post)

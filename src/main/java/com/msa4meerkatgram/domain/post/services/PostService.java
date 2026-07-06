@@ -1,11 +1,11 @@
 package com.msa4meerkatgram.domain.post.services;
 
-import com.msa4meerkatgram.domain.post.entities.Post;
+import com.msa4meerkatgram.domain.post.entities.PostMybatis;
 import com.msa4meerkatgram.domain.post.mapper.PostMapper;
 import com.msa4meerkatgram.domain.post.requests.PostCreateReq;
 import com.msa4meerkatgram.domain.post.requests.PostIndexReq;
 import com.msa4meerkatgram.domain.post.responses.PostIndexRes;
-import com.msa4meerkatgram.domain.user.entities.User;
+import com.msa4meerkatgram.domain.user.entities.UserMybatis;
 import com.msa4meerkatgram.domain.user.mapper.UserMapper;
 import com.msa4meerkatgram.global.errors.custom.DeletedRecordException;
 import com.msa4meerkatgram.global.errors.custom.ForbiddenException;
@@ -28,7 +28,7 @@ public class PostService {
         int offset = (postIndexReq.page() -1) * postIndexReq.limit();
 
         // 특정 페이지 게시글 조회
-        List<Post> posts = postMapper.getPagination(postIndexReq.limit(), offset);
+        List<PostMybatis> posts = postMapper.getPagination(postIndexReq.limit(), offset);
 
         // 토탈 획득
         long total = postMapper.getTotal();
@@ -43,8 +43,8 @@ public class PostService {
     }
 
     // 상세페이지
-    public Post show(long id) {
-        Post post = postMapper.findByPk(id);
+    public PostMybatis show(long id) {
+        PostMybatis post = postMapper.findByPk(id);
 
         if(post == null) {
             throw new DeletedRecordException("이미 삭제된 게시글 입니다.");
@@ -54,15 +54,15 @@ public class PostService {
     }
 
     // 게시물 작성
-    public Post create(PostCreateReq postCreateReq, long id) {
+    public PostMybatis create(PostCreateReq postCreateReq, long id) {
         // 유저 정보 획득
-        User user = userMapper.findByPk(id);
+        UserMybatis user = userMapper.findByPk(id);
 
         if(user == null) {
             throw new UserNotFoundException("존재하지 않는 회원입니다.");
         }
 
-        Post post = Post.builder()
+        PostMybatis post = PostMybatis.builder()
                 .content(postCreateReq.content())
                 .image(postCreateReq.image())
                 .userId(id)
@@ -75,13 +75,13 @@ public class PostService {
 
     // 게시글 삭제
     public void delete(long postId, long userId) {
-        User user = userMapper.findByPk(userId);
+        UserMybatis user = userMapper.findByPk(userId);
 
         if(user == null) {
             throw new UserNotFoundException("존재하지 않는 회원입니다.");
         }
 
-        Post post = postMapper.findByPk(postId);
+        PostMybatis post = postMapper.findByPk(postId);
         if(post == null) {
             throw new PostNotFoundException("존재하지 않는 게시글입니다.");
         }
