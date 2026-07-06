@@ -235,7 +235,7 @@ MyBatis는 기본적으로 이름이 정확히 일치해야 매핑하므로, `<r
 
 **UserMapper.xml — ResultMap 예시**
 ```xml
-<resultMap id="UserResultMap" type="com.msa4meerkatgram.domain.user.entities.User">
+<resultMap id="UserResultMap" type="com.msa4meerkatgram.domain.user.entities.UserMybatis">
     <result column="id"            property="id" />
     <result column="email"         property="email" />
     <result column="nick"          property="nick" />
@@ -261,7 +261,7 @@ MyBatis는 기본적으로 이름이 정확히 일치해야 매핑하므로, `<r
 ```xml
 <insert
     id="create"
-    parameterType="com.msa4meerkatgram.domain.user.entities.User"
+    parameterType="com.msa4meerkatgram.domain.user.entities.UserMybatis"
     useGeneratedKeys="true"
     keyProperty="id"
 >

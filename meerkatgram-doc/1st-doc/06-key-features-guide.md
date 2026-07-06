@@ -489,7 +489,7 @@ public void destroy(long id) {
 ### 4-1. ResultMap — DB 컬럼 ↔ Java 필드 매핑
 
 ```xml
-<resultMap id="PostResultMap" type="com.msa4meerkatgram.domain.post.entities.Post">
+<resultMap id="PostResultMap" type="com.msa4meerkatgram.domain.post.entities.PostMybatis">
     <id     column="id"         property="id" />       <!-- PK는 <id> 태그 -->
     <result column="user_id"    property="userId" />   <!-- snake_case → camelCase -->
     <result column="content"    property="content" />
@@ -523,7 +523,7 @@ public void destroy(long id) {
 ```xml
 <insert
     id="create"
-    parameterType="com.msa4meerkatgram.domain.post.entities.Post"
+    parameterType="com.msa4meerkatgram.domain.post.entities.PostMybatis"
     useGeneratedKeys="true"
     keyProperty="id"
 >
