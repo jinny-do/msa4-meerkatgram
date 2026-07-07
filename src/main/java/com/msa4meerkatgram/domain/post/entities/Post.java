@@ -10,6 +10,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "posts")
@@ -21,7 +23,7 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "BIGINT UNSIGNED")
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY) // 연관 관계
     @JoinColumn(name = "user_id"
@@ -40,12 +42,12 @@ public class Post {
 
     @CreatedDate // 생성 시 자동으로 시간 입력
     @Column(name = "created_at", nullable = false)
-    private String createdAt;
+    private LocalDateTime createdAt;
 
     @LastModifiedDate // 수정 시 자동으로 시간 업데이트
     @Column(name = "updated_at", nullable = false)
-    private String updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at", nullable = true)
-    private String deletedAt;
+    private LocalDateTime deletedAt;
 }
