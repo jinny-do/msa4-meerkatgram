@@ -2,9 +2,11 @@ package com.msa4meerkatgram.domain.auth.responses;
 
 import com.msa4meerkatgram.domain.user.entities.User;
 import com.msa4meerkatgram.domain.user.responses.UserWithPostCountRes;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-
+@Schema(description = "로그인 Response")
 public record AuthRes(
+
         UserWithPostCountRes user
         ,String accessToken
 ) {

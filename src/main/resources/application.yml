@@ -48,10 +48,20 @@ server:
     include-stacktrace: always
     include-message: always
 
-# MyBatis
-mybatis:
-  mapper-locations: classpath:mapper/**/*Mapper.xml
-  type-aliases-package: com.msa4meerkatgram
+# SpringDOC Openapi (Swagger)
+springdoc:
+  # client가 서버로 데이터를 보낼 때의 기본 형식(req의 content타입)을 지정하는 속성
+  default-consumes-media-type: application/json
+  # 서버가 client로 데이터를 보낼 때의 기본 형식을 지정하는 속성
+  default-produces-media-type: application/json
+  swagger-ui:
+    # Swagger UI 접속 경로 설정
+    path: /swagger-ui.html
+    # API 정렬 기준 (alpha: 알파벳 순 정렬)
+    operations-sorter: alpha
+  api-docs:
+    # OpenAPI 스팩을 JSON 파일로 확인할 수 있는 경로
+    path: /api-docs
 
 # Log
 logging:
@@ -64,6 +74,7 @@ logging:
 
     # 특정 패키지만 로그 출력 레벨 설정
     com.msa4spring.controllers: debug
+    com.msa4meerkatgram.global.errors: debug
 
 # Security & JWT
 security:
