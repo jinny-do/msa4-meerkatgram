@@ -12,6 +12,7 @@
 | [02-layer-analysis.md](./02-layer-analysis.md) | Controller, Service, Repository, Entity, DTO 레이어 분석 |
 | [03-code-convention.md](./03-code-convention.md) | 현재 코드에서 보이는 네이밍, 패키지, 응답, 예외 처리 컨벤션 |
 | [04-non-developer-flow.md](./04-non-developer-flow.md) | 비전공자도 이해할 수 있는 서비스 동작 흐름 |
+| [05-swagger-openapi-analysis.md](./05-swagger-openapi-analysis.md) | Swagger/OpenAPI 관련 코드와 문서화 흐름 |
 
 ## 현재 구현 범위 요약
 
@@ -23,4 +24,3 @@
 - 공통 처리: JWT 인증 필터, Spring Security 설정, CORS 설정, 공통 응답 포맷, 전역 예외 처리
 
 `user` 도메인은 패키지와 기본 클래스는 존재하지만, 현재 별도의 사용자 조회 API는 구현되어 있지 않습니다.
-
